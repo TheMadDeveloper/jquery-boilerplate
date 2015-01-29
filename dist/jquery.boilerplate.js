@@ -1,5 +1,5 @@
 /*
- *  jQuery Boilerplate - v3.3.4
+ *  jQuery Boilerplate - v3.3.5
  *  A jump-start for jQuery plugins development.
  *  http://jqueryboilerplate.com
  *
@@ -57,14 +57,11 @@
 		// A really lightweight plugin wrapper around the constructor,
 		// preventing against multiple instantiations
 		$.fn[ pluginName ] = function ( options ) {
-				this.each(function() {
+				return this.each(function() {
 						if ( !$.data( this, "plugin_" + pluginName ) ) {
 								$.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
 						}
 				});
-
-				// chain jQuery functions
-				return this;
 		};
 
 })( jQuery, window, document );

@@ -1,0 +1,29 @@
+{
+	"name": "noise",
+	"title": "jQuery Noise",
+	"description": "A widget for rendering and displaying noise/static animations via html5 canvas. Depends on the jQueryUI widget factory.",
+	"keywords": [
+		"jquery",
+		"noise",
+		"plugins",
+		"widget",
+		"static"
+	],
+	"version": "0.1.0",
+	"author": {
+		"name": "Keith Kerlan",
+		"email": "w@keithkerlan.com",
+		"url": "https://github.com/TheMadDeveloper"
+	},
+	"maintainers": [
+	],
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://zenorocha.mit-license.org/"
+		}
+	],
+	"dependencies": {
+		"jquery": ">=1.4"
+	}
+}

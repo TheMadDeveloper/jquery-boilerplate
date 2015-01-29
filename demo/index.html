@@ -3,15 +3,14 @@
 	<head>
 		<title>jQuery Boilerplate</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-		<script src="../src/jquery.boilerplate.js"></script>
+		<script src="lib/jquery.ui.widget.js"></script>
+		<script src="../src/jquery.noise.js"></script>
 	</head>
-	<body>
-		<div id="element"></div>
+	<body bgcolor="black">
+		<canvas class="noise" width="500" height="500"></canvas>
 		<script>
 			$(function() {
-				$("#element").defaultPluginName({
-					propertyName: "a custom value"
-				});
+				$(".noise").noise();
 			});
 		</script>
 	</body>
