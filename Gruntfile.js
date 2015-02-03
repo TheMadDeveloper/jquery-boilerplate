@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 		// Concat definitions
 		concat: {
 			dist: {
-				src: ["src/jquery.noise.js"],
+				src: ["src/kquery.graphic.js","src/jquery.noise.js"],
 				dest: "dist/jquery.noise.js"
 			},
 			options: {
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 
 		// Lint definitions
 		jshint: {
-			files: ["src/jquery.noise.js"],
+			files: ["src/kquery.graphic.js","src/jquery.noise.js"],
 			options: {
 				jshintrc: ".jshintrc"
 			}
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 		// Minify definitions
 		uglify: {
 			my_target: {
-				src: ["dist/jquery.noise.js"],
+				src: ["src/kquery.graphic.js","dist/jquery.noise.js"],
 				dest: "dist/jquery.noise.min.js"
 			},
 			options: {

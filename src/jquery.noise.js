@@ -6,26 +6,27 @@
 	// existing widget prototype to inherit from, an object
 	// literal to become the widget's prototype );
 
-	$.widget( "k3.noise" , {
+	$.widget( "k3.noise" , $.k3.image, {
 
 		//Options to be used as defaults
 		options: {
 			c1: [255,255,255,255],
 			frames: 32,
-			frame_rate: 1
+			animates: {}
 		},
 
 		//Setup widget (eg. element creation, apply theming
 		// , bind events etc.)
 		_create: function () {
-			var $el = this.element;
-			this._width = $el.width();
-			this._height = $el.height();
-			this._ctx = this.element[0].getContext("2d");
-			this._t = 0;
+			this._super();
+
+			//this._initImageMask();
+			//this.draw();
+
+			//this._ctx = this.element[0].getContext("2d");
+
 
 			this.frame_count = this.option("frames");
-			this.rate = this.option("frame_rate") || 1;
 
 			this._noise_frames = [];
 			for (var n = this.frame_count; n > 0; n--) {
@@ -33,7 +34,16 @@
 			}
 
 			this.anim_id = false;
-			this._redraw();
+
+			//this.draw();
+			this._t = 0;
+			this.draw();
+		},
+
+		_initImg: function() {
+			this._super();
+			this.option("mask", this.getImageData());
+			this.convertCanvas();
 		},
 
 		// Destroy an instantiated plugin and clean up
@@ -49,43 +59,90 @@
 			// calling the base widget
 		},
 
-		_redraw: function() {
-			var me = this;
+		//_initImageMask: function() {
+		//	var ctx = this._getContext(),
+		//			img = ctx.getImageData(0, 0, this._width, this._height);
+        //
+		//	this.mask = img.data;
+        //
+		//},
 
-			if (this._t % this.rate === 0) {
-				me._render(this._t);
-			}
-			this._t++;
+		//_initImageMask: function() {
+		//	var ctx = this._getContext(),
+		//			img = ctx.getImageData(0,0, this._width, this._height),
+		//			mask_ranges = [],
+		//			alpha0 = 0;
+        //
+		//	// Scan image
+		//	for (var i = 0, n = img.data.length; i < n; i+=4) {
+		//		var alpha = img.data[i+3];
+        //
+		//		if (alpha > 0 ) {
+		//			if (alpha0 == 0) {
+		//				mask_ranges.push(i);
+		//			}
+        //
+		//			//this._setPixel(img.data,i,[255,0,0,alpha]);
+		//		}
+		//		else {
+		//			if (alpha0 > 0) {
+		//				mask_ranges.push(i);
+		//			}
+		//		}
+        //
+		//		alpha0 = alpha;
+		//	}
+        //
+		//	this._mask_ranges = mask_ranges;
+        //
+		//	console.log(mask_ranges);
+		//	var r,l;
+		//	for (r = 0, l = mask_ranges.length; r < l; r++) {
+		//		for (i = mask_ranges[r], n = r+1 >= l ? img.data.length : mask_ranges[r+1]; i < mask_ranges[r+1]; i+=4) {
+		//			alpha = img.data[i+3];
+		//			this._setPixel(img.data,i,[255,0,0,alpha]);
+		//		}
+		//	}
+		//	ctx.putImageData(img,0,0);
+		//},
 
-			me.anim_id = requestAnimationFrame(function() { me._redraw.apply(me); });
-		},
+		//_draw: function() {
+		//	this._render();
+		//},
+        //
+		//_redraw: function() {
+		//	var me = this;
+        //
+		//	if (this._t % this.rate === 0) {
+		//		me._render(this._t);
+		//	}
+		//	this._t++;
+        //
+		//	me.anim_id = requestAnimationFrame(function() { me.redraw.apply(me); });
+		//},
 		_render: function(t) {
-			this._ctx.putImageData(this._noise_frames[t % this.frame_count],0,0);
+			t = t || 0;
+			this.getContext().putImageData(this._noise_frames[t % this.frame_count],0,0);
 		},
 
 		// Create a frame of random static
 		_renderNoiseFrame: function(c1, c2) {
-			var img = this._ctx.createImageData(this._width, this._height);
-
+			var img = this.getContext().createImageData(this._width, this._height);
+			var mask = this.option("mask");
 			c1 = c1 || this.option("c1");
 			c2 = c2 || this.option("c2");
 
 			for (var i = 0, n = img.data.length; i < n; i+=4) {
-				if (Math.random() < 0.5) {
-					this._setPixel(img.data,i,c1);
-				}
-				else if (c2) {
-					img.data.spliceArray(i,4,c2);
+				if (mask && mask.data[i+3] > 0) {
+					if (Math.random() < 0.5) {
+						this._setPixel(img.data, i, c1);
+					}
+					else if (c2) {
+						img.data.spliceArray(i, 4, c2);
+					}
 				}
 			}
-
 			return img;
-		},
-
-		_setPixel: function(data, i, rgba) {
-			for(var n = 0; n < 4; n++) {
-				data[i+n] = rgba[n];
-			}
 		}
 
 		// Respond to any changes the user makes to the
