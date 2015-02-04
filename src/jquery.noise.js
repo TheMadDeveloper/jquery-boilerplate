@@ -6,7 +6,7 @@
 	// existing widget prototype to inherit from, an object
 	// literal to become the widget's prototype );
 
-	$.widget( "k3.noise" , $.k3.image, {
+	$.widget( "k3.noise" , $.k3.graphic, {
 
 		//Options to be used as defaults
 		options: {
