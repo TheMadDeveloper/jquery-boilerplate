@@ -75,7 +75,7 @@
 
 			this.$canvas = this._createCanvas();
 			this.element.replaceWith(this.$canvas);
-			//this.$canvas.appendTo(document.body);
+
 			this.element = this.$canvas;
 			this._ctx = this.$canvas.get(0).getContext("2d");
 		},

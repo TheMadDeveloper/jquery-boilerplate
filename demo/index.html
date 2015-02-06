@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>jQuery Boilerplate</title>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-		<script src="lib/jquery.ui.widget.js"></script>
-		<script src="../src/kquery.graphic.js"></script>
-		<script src="../src/jquery.noise.js"></script>
-	</head>
-	<body bgcolor="grey">
-		<canvas class="noise" width="500" height="500"></canvas>
-		<img src="img/horse-mask.png" class="k3-image">
-		<script>
-			$(function() {
-				//setTimeout(function() {
-					$(".k3-image").noise();
-				//}, 1000);
+<head>
+	<title>kQuery Plugins</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="lib/jquery.ui.widget.js"></script>
+	<script src="../src/kquery.graphic.js"></script>
+	<script src="../src/jquery.noise.js"></script>
+</head>
+<body bgcolor="grey">
 
-				//$(".k3-image").image();
-			});
-		</script>
-	</body>
+<div class="sample">
+	<h3>Canvas</h3>
+	<canvas class="k3-noise" width="300" height="300"></canvas>
+</div>
+
+<div class="sample">
+	<h3>Element Overlay</h3>
+	<div class="k3-noise">
+		Adding some text for height
+	</div>
+</div>
+
+<div class="sample">
+	<h3>Image Mask</h3>
+
+	<img src="img/horse-mask.png" class="k3-noise">
+</div>
+
+<script>
+	$(function () {
+		//setTimeout(function() {
+		$(".k3-noise").noise();
+		//}, 1000);
+	});
+</script>
+</body>
 </html>

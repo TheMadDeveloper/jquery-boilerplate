@@ -11,20 +11,14 @@
 		//Options to be used as defaults
 		options: {
 			c1: [255,255,255,255],
+			c2: [0,0,0,255],
 			frames: 32,
 			animates: {}
 		},
 
-		//Setup widget (eg. element creation, apply theming
-		// , bind events etc.)
+		//Setup widget
 		_create: function () {
 			this._super();
-
-			//this._initImageMask();
-			//this.draw();
-
-			//this._ctx = this.element[0].getContext("2d");
-
 
 			this.frame_count = this.option("frames");
 
@@ -33,10 +27,6 @@
 				this._noise_frames.push(this._renderNoiseFrame());
 			}
 
-			this.anim_id = false;
-
-			//this.draw();
-			this._t = 0;
 			this.draw();
 		},
 
@@ -133,13 +123,13 @@
 			c2 = c2 || this.option("c2");
 
 			for (var i = 0, n = img.data.length; i < n; i+=4) {
-				if (mask && mask.data[i+3] > 0) {
-					if (Math.random() < 0.5) {
-						this._setPixel(img.data, i, c1);
+				if (mask) {
+					if(mask.data[i+3] > 0) {
+						this._setPixel(img.data, i, Math.random() < 0.5 ? c1 : c2);
 					}
-					else if (c2) {
-						img.data.spliceArray(i, 4, c2);
-					}
+				}
+				else {
+					this._setPixel(img.data, i, Math.random() < 0.5 ? c1 : c2);
 				}
 			}
 			return img;
